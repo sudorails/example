@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Education Verifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stream</th>
+      <th>Month</th>
+      <th>Year</th>
+      <th>Customer</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @education_verifications.each do |education_verification| %>
+      <tr>
+        <td><%= education_verification.stream %></td>
+        <td><%= education_verification.month %></td>
+        <td><%= education_verification.year %></td>
+        <td><%= education_verification.customer_id %></td>
+        <td><%= education_verification.status %></td>
+        <td><%= link_to 'Show', education_verification %></td>
+        <td><%= link_to 'Edit', edit_education_verification_path(education_verification) %></td>
+        <td><%= link_to 'Destroy', education_verification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Education verification', new_education_verification_path %>

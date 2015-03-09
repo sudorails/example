@@ -1,0 +1,27 @@
+<table class="table table-condensed table-striped">
+<b> Assigned Customers</b><hr>
+<tr> 
+	<th>Customer Name</th>
+	<th>Type </th>
+	<th>Status</th>
+	<th>Assigned Tab</th>
+</tr>
+<% @pending_on_tabs.each do |tab| %>
+<tr>
+	<td><%= tab.customer.slug %></td>
+	<td><%= tab.customer.verification_type.name %></td>
+	<% if tab.customer.pending? %>
+	<td><h6 class="label label-info">
+
+	<% elsif tab.customer.in_progress? %>
+	<td><h6 class="label label-warning">
+
+	<% elsif tab.customer.completed? %>
+	<td><h6 class="label label-success">
+
+  <% end %>
+	<%= tab.customer.status.humanize %></h6></td>
+	<td class="text-success"><b><%= (tab.customer.status=='in_progress') ? (link_to "Start Servey", new_address_servey_path(tab.customer)) : 'Servey Done!' %></b></td>
+</tr>
+<% end %>
+</table>

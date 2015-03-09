@@ -1,0 +1,34 @@
+<style type="text/css">
+	h1 {
+		color:orange;
+	}
+</style>
+<div class="col-md-4">
+<h1><%= @tab.name %></h1>
+<% unless @tab.user %>
+  <%= form_tag tab_user_tab_path  do %>
+    <%= select_tag "user[tab_id]", options_from_collection_for_select(User.joins(:role).where('roles.name=?', 'moderator'), "id", "email"), :prompt => "Select one Tab User", :class=> "form-control" %><br>
+    <%= submit_tag "Save" , :class=> "btn btn-info"  %>
+  <% end %>
+  <hr>
+<% else %>
+  <p class="label label-success">Tab Assigned to <%= @tab.user.email %></p>
+<% end %>
+<hr>
+</div>
+
+<table class="table table-condensed">
+<tr>
+<th>Name </th>
+<th>Type </th>
+<th>status </th>
+</tr>
+
+<% @tab.customer_verifications.each do |cv| %>
+ <tr>
+  <td><%= cv.customer.slug %></td>
+  <td><%= cv.customer.verification_type.name %></td>
+  <td><%= cv.customer.status.humanize %></td>
+</tr>
+<% end %>
+</table>

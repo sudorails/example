@@ -1,0 +1,43 @@
+<table class="table table-condensed table-striped table-bordered">
+<% if current_user && current_user.admin? %>
+		<tr>
+			<td>Total Entries</td>
+			<td width="30%" class="text-center"><%= Customer.count %></td>
+		</tr>
+		<tr>
+			<td>Total Pending Entries</td>
+			<td width="30%" class="text-center">
+				<%= CustomerVerification.joins(:customer).where('customers.status =?', 'in_progress').count %>
+			</td>
+		</tr>
+		<tr>
+			<td>Total In Progress Entries</td>
+			<td width="30%" class="text-center"><%= CustomerVerification.joins(:customer).where('customers.status =?', 'completed').count %></td>
+		</tr>
+		<tr>
+			<td>Total Completed Entries</td>
+			<td width="30%" class="text-center"><%= CustomerVerification.joins(:customer).where('customers.status =?', 'verified').count %></td>
+		</tr>
+
+		<% elsif current_user.tab? %>
+		
+		<tr>
+			<td>Total Entries</td>
+			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.count if current_user.tab.present? %></td>
+		</tr>
+		<tr>
+			<td>Total Pending Entries</td>
+			<td width="30%" class="text-center">
+				<%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'in_progress').count if current_user.tab.present? %>
+			</td>
+		</tr>
+		<tr>
+			<td>Total In Progress Entries</td>
+			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'completed').count if current_user.tab.present? %></td>
+		</tr>
+		<tr>
+			<td>Total Completed Entries</td>
+			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'verified').count if current_user.tab.present? %></td>
+		</tr>
+	<% end %>
+		</table>

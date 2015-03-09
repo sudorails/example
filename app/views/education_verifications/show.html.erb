@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stream:</strong>
+  <%= @education_verification.stream %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @education_verification.month %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @education_verification.year %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @education_verification.customer_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @education_verification.status %>
+</p>
+
+<%= link_to 'Edit', edit_education_verification_path(@education_verification) %> |
+<%= link_to 'Back', education_verifications_path %>

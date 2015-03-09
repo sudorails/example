@@ -1,0 +1,46 @@
+<%= nested_form_for(@customer) do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, :class => "form-control", :placeholder => "Enter Customer's Full Name" %>
+    </div>
+
+    <div class="form-group">
+    <%= f.label :father_name %><br>
+    <%= f.text_field :father_name, :class=>"form-control" %>
+    </div>
+    
+    <div class="form-group">
+    <%= f.label :dob %><br>
+    <%= f.date_select :dob, :class=> "form-group" %>
+    </div>
+    
+    <div class="form-group">
+    <%= f.label :location %><br>
+    <%= f.text_field :location, :class=>"form-control" %>
+    </div>
+
+    <div class="form-group">
+    <%= f.label :address %><br>
+    <%= f.text_area :address, :class=>"form-control" %>
+    </div>
+
+    <%= f.fields_for :customer_documents do |document| %>
+      <%= document.file_field :document %>
+    <% end %>
+
+  <div class="actions">
+    <%= f.submit "Save Customer", :class=> "btn btn-info" %>
+  </div>
+<% end %>

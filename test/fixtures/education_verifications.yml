@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stream: MyString
+  month: 1
+  year: 1
+  customer_id: 1
+  status: MyString
+
+two:
+  stream: MyString
+  month: 1
+  year: 1
+  customer_id: 1
+  status: MyString

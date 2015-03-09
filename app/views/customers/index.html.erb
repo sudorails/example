@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Customers</h1><hr>
+
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <!-- <th>Verification Type</th> -->
+      <th>Created By</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.slug %></td>
+        <!-- <td><%#= customer.verification_type.name if customer.verification_type.present? %></td> -->        
+        <td><%= customer.user.email %></td>   
+        <td>
+          <% if customer.pending? %>
+          <h6 class="label label-warning">
+          <% elsif customer.in_progress? %>
+          <h6 class="label label-info">
+          <% else customer.completed? %>
+          <h6 class="label label-success">
+          <% end %>
+          <%= customer.status.humanize %>
+        </td>          
+        <td><%= link_to 'Show', customer %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customer', new_customer_path, :class=> "btn btn-sm btn-info" %>

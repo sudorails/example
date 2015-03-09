@@ -1,0 +1,25 @@
+<table class="table table-condensed table-striped">
+<thead>
+<tr>
+	<th>Tab Name </th>
+	<th>Assiged To </th>
+	<th>Total cases Assigned </th>
+	<th>Pending </th>
+	<th>Completed </th>
+	<th>In Progress </th>
+
+</tr>
+</thead>
+<tbody>
+<% @tabs.each do |tab| %>
+ <tr>
+	<td><b><%= tab.name %></b></td>
+	<td><%= tab.user ? tab.user.email : (link_to "assign a user to this tab", tab) %></td>
+	<td class="text-warning"><%= tab.customer_verifications.count %></td>
+	<td class="text-danger"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'pending').count %></td>
+	<td class="text-success"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'completed').count %></td>
+	<td class="text-primary"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'in_progress').count %></td>
+ </tr>
+<% end %>
+</tbody>
+</table>

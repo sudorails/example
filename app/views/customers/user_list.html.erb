@@ -1,0 +1,20 @@
+<table class="table table-condensed table-striped">
+<thead>
+	<tr>
+		<th>Email</th>
+		<th>Role</th>
+		<th>Status</th>
+	</tr>
+</thead>
+<% @users.each do |user| %>
+ <tr>
+	 <td><%= user.email %></td>
+	 <td><%= user.role.name %></td>
+	 <% unless user.confirmed? %>
+	 	<td><%= link_to "Approve", approve_customers_path(:user_id => user), class: "label label-danger" %></td>
+   <% else %>
+   	<td><%= link_to "Confirmed", "#", class: "label label-success" %></td>
+   <% end %>
+ </tr>
+<% end %>
+</table>

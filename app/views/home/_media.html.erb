@@ -1,0 +1,24 @@
+<% if user_signed_in? && current_user.profile %>
+<h4 class="media-heading">
+	Hello,<%= link_to current_user.profile.full_name if current_user.profile.full_name.present? %>!
+</h4>
+ <% if current_user.admin? %>
+	<h5 class="label label-success"> 
+		<%= current_user.role.name.humanize %> 
+	</h5><br>
+ <% else current_user.tab? %>
+	<h5 class="label label-success"> 
+		<%= current_user.role.name.humanize %> 
+	</h5>
+	&nbsp;&nbsp;<%= link_to current_user.tab.name, current_user.tab, :class=>" label label-danger" if current_user.tab %>
+	<% end %>
+<br>
+	<small class="text-danger"><%= current_user.email %></small><br>
+	<small class="text-default"> 
+		Member since <%= time_tag current_user.created_at %> | 
+	</small>
+	<small class="text-success">
+  <b>last login:</b>
+  	<%= time_tag current_user.last_sign_in_at.to_date if current_user.last_sign_in_at %>
+  </small>
+<% end %>

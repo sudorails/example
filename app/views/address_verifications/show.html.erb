@@ -1,0 +1,43 @@
+
+<p>
+  <strong>Father name:</strong>
+  <%= @address_verification.father_name %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @address_verification.dob %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @address_verification.location %>
+</p>
+
+<p>
+  <strong>Address one:</strong>
+  <%= @address_verification.address_one %>
+</p>
+
+<p>
+  <strong>Address two:</strong>
+  <%= @address_verification.address_two %>
+</p>
+
+<p>
+  <strong>Address third:</strong>
+  <%= @address_verification.address_third %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @address_verification.customer_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @address_verification.status %>
+</p>
+
+<%= link_to 'Edit', edit_address_verification_path(@address_verification) %> |
+<%= link_to 'Back', address_verifications_path %>

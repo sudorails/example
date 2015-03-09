@@ -1,0 +1,94 @@
+<p>
+  <h3 style="color:#234cbd">
+    <%= @customer.name %>
+    <span class="pull-right"><%= link_to 'Edit', edit_customer_path(@customer) %> |
+    <%= link_to 'Back', customers_path %></span></h3>
+  <hr>
+</p>
+
+<% @customer.customer_documents.each do |t| %>
+  <%= link_to image_tag(t.document.url(:thumb)), t.document.url %>
+<% end %>
+
+
+<% if @customer.address_verification.present? %>
+  <% if @customer.pending? %>
+    <div class="panel panel-primary">
+  <% elsif @customer.in_progress? %>
+    <div class="panel panel-warning">
+  <% elsif @customer.completed? %>
+    <div class="panel panel-success">
+  <% end %>
+
+  <div class="panel-heading">Address verification
+  </div>
+  <div class="panel-body">
+    <% unless @customer.customer_verification.present? %> 
+    <div class="pull-right">
+    <%= form_for :customer_verification_customer_path, :html => {:class => "form-inline"} ,  :url => customer_verification_customer_path(:customer_id=> @customer.id) do |f| %>
+    <%= select_tag "customer_verification[tab_id]", options_for_select(Tab.all.collect {|r|[r.name,r.id]}), {:class=>'form-control'} %>
+    <%= f.submit "Send for verification", :class=>"btn btn-success" %>
+    <% end %>
+    </div>
+    <% else %>
+    <small class="pull-right">Submitted to <%= link_to @customer.customer_verification.tab.name, tab_path(@customer.customer_verification.tab) %></small>
+    <% end %>
+	 <%= render "address_verification" %>
+  </div>
+</div>
+<% end %>
+
+<% if @customer.education_verification.present? %>
+  <% if @customer.pending? %>
+    <div class="panel panel-primary">
+  <% elsif @customer.in_progress? %>
+    <div class="panel panel-warning">
+  <% elsif @customer.completed? %>
+    <div class="panel panel-success">
+  <% end %>
+
+  <div class="panel-heading">Education verification
+  </div>
+  <div class="panel-body">
+    <% unless @customer.customer_verification.present? %> 
+    <div class="pull-right">
+    <%= form_for :customer_verification_customer_path, :html => {:class => "form-inline"} ,  :url => customer_verification_customer_path(:customer_id=> @customer.id) do |f| %>
+    <%= select_tag "customer_verification[tab_id]", options_for_select(Tab.all.collect {|r|[r.name,r.id]}), {:class=>'form-control'} %>
+    <%= f.submit "Send for verification", :class=>"btn btn-success" %>
+    <% end %>
+    </div>
+    <% else %>
+    <small class="pull-right">Submitted to <%= link_to @customer.customer_verification.tab.name, tab_path(@customer.customer_verification.tab) %></small>
+    <% end %>
+	 <%= render "education_verification" %>
+  </div>
+</div>
+<% end %>
+
+<% if @customer.crime_verification.present? %>
+  <% if @customer.pending? %>
+    <div class="panel panel-primary">
+  <% elsif @customer.in_progress? %>
+    <div class="panel panel-warning">
+  <% elsif @customer.completed? %>
+    <div class="panel panel-success">
+  <% end %>
+
+  <div class="panel-heading">Crime verification
+  </div>
+  <div class="panel-body">
+    <% unless @customer.customer_verification.present? %> 
+    <div class="pull-right">
+    <%= form_for :customer_verification_customer_path, :html => {:class => "form-inline"} ,  :url => customer_verification_customer_path(:customer_id=> @customer.id) do |f| %>
+    <%= select_tag "customer_verification[tab_id]", options_for_select(Tab.all.collect {|r|[r.name,r.id]}), {:class=>'form-control'} %>
+    <%= f.submit "Send for verification", :class=>"btn btn-success" %>
+    <% end %>
+    </div>
+    <% else %>
+    <small class="pull-right">Submitted to <%= link_to @customer.customer_verification.tab.name, tab_path(@customer.customer_verification.tab) %></small>
+    <% end %>
+	 <%= render "crime_verification" %>
+  </div>
+</div>
+<% end %>
+

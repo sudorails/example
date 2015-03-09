@@ -1,0 +1,29 @@
+<div id ="logo" style="float:left;width:50%">
+  <%= image_tag "verifyme.jpg" %>
+  <%= image_tag('scorpLogo.jpg', :size => "250x450")%>
+</div>
+
+
+<div style="float:right;width:50%">
+ <h4>Sign in</h4>
+<%= form_for :session, url: sessions_path , method: :post  do |f| %>
+
+<p> 
+ <label for="username" class="uname" data-icon="u" > Your email or username </label>
+  <%= f.text_field :tab_name, :id=>"username", :placeholder=>"mymail@mail.com" %><br>
+</p>
+
+<p>
+<label for="password" class="youpasswd" data-icon="p"> Your password </label>
+  <%= f.password_field :password, :id=>"password", :placeholder=>"eg. X8df!90EO" %><br>
+</p>
+
+<p>
+ <i><label for="loginkeeping"><%= f.check_box :remember_me, :id=>"loginkeeping" %>
+ Keep me logged in</label></i> 
+</p>
+
+<%= f.submit "Sign in", :class=>"btn btn-small btn-primary" %>
+
+<% end %>
+</div>

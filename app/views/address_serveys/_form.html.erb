@@ -1,0 +1,13 @@
+<div class="col-lg-6">
+	<%= form_for @address_servey do |f| %>
+		<h3><%= current_user.tab.name %></h3><hr>
+		<h5> Servey Initiated by <br><br>
+		<%= f.text_field :agency_name, :class=> "form-control", :placeholder => "agency name" %></h5>
+		<%= f.radio_button :address_confirmed, true %><label>Stay Confirmed</label><br><br>
+		<%= f.radio_button :marital_status, true %><label>Married?</label>
+		&nbsp;&nbsp;&nbsp;<%= f.radio_button :marital_status, false %><label>UnMarried?</label><br><br>
+		Date Of Visit : <%= time_tag Time.now %><br><br>
+		Person Contacted : <%= f.text_field :person_contacted, :class=> "form-control" %><br><br>
+		<%= f.submit "Submit Servey", :class => "btn btn-success" %>
+	<% end %>
+</div>

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Address Verifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Father name</th>
+      <th>Dob</th>
+      <th>Location</th>
+      <th>Address one</th>
+      <th>Address two</th>
+      <th>Address third</th>
+      <th>Customer</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @address_verifications.each do |address_verification| %>
+      <tr>
+        <td><%= address_verification.father_name %></td>
+        <td><%= address_verification.dob %></td>
+        <td><%= address_verification.location %></td>
+        <td><%= address_verification.address_one %></td>
+        <td><%= address_verification.address_two %></td>
+        <td><%= address_verification.address_third %></td>
+        <td><%= address_verification.customer_id %></td>
+        <td><%= address_verification.status %></td>
+        <td><%= link_to 'Show', address_verification %></td>
+        <td><%= link_to 'Edit', edit_address_verification_path(address_verification) %></td>
+        <td><%= link_to 'Destroy', address_verification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Address verification', new_address_verification_path %>

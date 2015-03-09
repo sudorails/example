@@ -1,0 +1,35 @@
+<div class="media pull-left" style="border: 1px solid silver; border-radius: 5px;padding:5px;">
+  <% if user_signed_in? && current_user.profile %>
+  <% unless current_user.profile.avatar.blank? %>
+   <p><%= image_tag current_user.profile.avatar.url(:thumb), :size=>"64x64" %></p>
+  <% else %>
+   <%= image_tag('sample-avatar.png', :size => '65x74')%>
+  <% end %>
+  <% end %>
+</div>
+
+<div class="col-md-5 pull-right">
+<% if user_signed_in? %>
+	<div class="panel panel-default">
+	  <div class="panel-heading"><b class="text-primary">Daily Status</b></div>
+	  <%= render :partial => "daily_status" %>
+	</div>
+<% end %>
+</div>
+
+<div class="media-body" style="padding-left:10px;">
+ <%= render :partial => "media" %>
+</div>
+<br>
+
+
+
+<div class="col-md-12">
+	<% if user_signed_in? %>
+    <% if current_user.admin? %> 
+    <%= render :partial => "admin" %>
+    <% else %>
+    <%= render :partial => "tab" %>
+   <% end %> 
+	<% end %>
+</div>

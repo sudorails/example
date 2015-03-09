@@ -1,0 +1,49 @@
+<%= form_for(@address_verification) do |f| %>
+  <% if @address_verification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@address_verification.errors.count, "error") %> prohibited this address_verification from being saved:</h2>
+
+      <ul>
+      <% @address_verification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :father_name %><br>
+    <%= f.text_field :father_name %>
+  </div>
+  <div class="field">
+    <%= f.label :dob %><br>
+    <%= f.date_select :dob %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :address_one %><br>
+    <%= f.text_area :address_one %>
+  </div>
+  <div class="field">
+    <%= f.label :address_two %><br>
+    <%= f.text_area :address_two %>
+  </div>
+  <div class="field">
+    <%= f.label :address_third %><br>
+    <%= f.text_area :address_third %>
+  </div>
+  <div class="field">
+    <%= f.label :customer_id %><br>
+    <%= f.number_field :customer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

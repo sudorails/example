@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: desidime
+  password: desidime123
+  pool: 5
+
+development:
+  <<: *default
+  database: sterling_development
+
+test:
+  <<: *default
+  database: sterling_test
+
+production:
+  <<: *default
+  database: sterling_production
+  username: sterling
+  password: <%= ENV['STERLING_DATABASE_PASSWORD'] %>
