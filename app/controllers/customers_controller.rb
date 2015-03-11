@@ -15,10 +15,11 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new    
-      @customer.build_address_verification
-      @customer.build_education_verification
-      @customer.build_crime_verification
-      @customer.customer_documents.build
+    @reference_id = Customer.present? ? Customer.last.reference_id+1 : 1001 
+    @customer.build_address_verification
+    @customer.build_education_verification
+    @customer.build_crime_verification
+    @customer.customer_documents.build
     respond_with(@customer)
   end
 
@@ -47,8 +48,7 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     @customer.user_id = current_user.id
-    @customer.reference_id = Customer.last.reference_id+1 
-    @customer.request_id = Customer.present? ? @customer.reference_id : 1
+    @customer.request_id = Customer.present? ? @customer.reference_id : 1001
     @customer.save
     if current_user.tab?
       redirect_to root_url , :notice => "Customer Created Successfully"

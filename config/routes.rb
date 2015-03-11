@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'profiles/index'
   get 'customers/user_list'
   get 'users' => "customers#user_list", :as => :users
   resources :address_verifications
   resources :education_verifications
+  resources :profiles
+
   resources :customers do 
     collection do   
       get 'confirm_users' => "customers#tab_approve"
@@ -15,13 +16,13 @@ Rails.application.routes.draw do
       post 'customer_verification'
     end
   end
+
   resources :tabs do 
     member do
       post 'tab_user'
     end
   end
 
-  
   devise_for :users
   root 'home#index'  
   

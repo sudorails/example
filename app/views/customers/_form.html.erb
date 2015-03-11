@@ -18,7 +18,7 @@
 
     <div class="form-group">
       <%= f.label :FHCode %><br>
-      <%= f.text_field :reference_id, :class => "form-control", :value => Customer.last.reference_id+1, :placeholder => "Enter FH code" %>
+      <%= f.text_field :reference_id, :class => "form-control", :value => @reference_id %>
     </div>
 
     <div class="form-group">
@@ -42,16 +42,44 @@
     <%= f.text_area :address, :class=>"form-control" %>
     </div>
 
+
+<style type="text/css">
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+</style>
 <div class="form-group">
   <legend>Customer Documents</legend>
   <%= f.fields_for :customer_documents do |document| %>
   <div class="col-md-8">
-    <%= document.text_field :doc_name, require: true, :class=> "form-control", :placeholder => "enter Document Name" %><br>
-    <%= document.file_field :document %><br>
-    <%= document.link_to_remove "Remove this Doc", :class => "label label-danger" %>
-  <hr></div>
+    <%= document.text_field :doc_name, :class=> "form-control", :placeholder => "enter Document Name" %><br>
+    <div class="col-md-4">
+     <span class="btn btn-file btn-success">
+      Upload<%= document.file_field :document, :onchange=>'$("#upload-file-info").html($(this).val());' %>&nbsp;
+      <p class='label label-info' id="upload-file-info"></p>
+     </span>
+    </div>
+    <div class="col-md-4 pull-right"><%= document.link_to_remove "Remove this Doc", :class => "btn btn-danger" %></div>
+
+    <br><hr></div>
   <% end %>
-  <%= f.link_to_add "Add a document", :customer_documents, :class => "label label-success" %>
+  <%= f.link_to_add "Add a document", :customer_documents, :class => "btn btn-success" %>
 </div>
 <br><br><br><br><br><br><br><br><br>
   <div class="form-group col-md-6">
