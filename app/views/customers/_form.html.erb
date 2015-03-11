@@ -10,10 +10,15 @@
       </ul>
     </div>
   <% end %>
-  
+  <div class="col-lg-10">
     <div class="form-group">
       <%= f.label :name %><br>
       <%= f.text_field :name, :class => "form-control", :placeholder => "Enter Customer's Full Name" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :FHCode %><br>
+      <%= f.text_field :reference_id, :class => "form-control", :value => Customer.last.reference_id+1, :placeholder => "Enter FH code" %>
     </div>
 
     <div class="form-group">
@@ -23,7 +28,8 @@
     
     <div class="form-group">
     <%= f.label :dob %><br>
-    <%= f.date_select :dob, :class=> "form-group" %>
+    <%#= f.date_select :dob, :class=> "form-group" %>
+    <%= f.date_select :dob, start_year: 1901, selected: Date.today-11000.days, :class=> "form-group" %>
     </div>
     
     <div class="form-group">
@@ -36,11 +42,21 @@
     <%= f.text_area :address, :class=>"form-control" %>
     </div>
 
-    <%= f.fields_for :customer_documents do |document| %>
-      <%= document.file_field :document %>
-    <% end %>
-
-  <div class="actions">
-    <%= f.submit "Save Customer", :class=> "btn btn-info" %>
+<div class="form-group">
+  <legend>Customer Documents</legend>
+  <%= f.fields_for :customer_documents do |document| %>
+  <div class="col-md-8">
+    <%= document.text_field :doc_name, require: true, :class=> "form-control", :placeholder => "enter Document Name" %><br>
+    <%= document.file_field :document %><br>
+    <%= document.link_to_remove "Remove this Doc", :class => "label label-danger" %>
+  <hr></div>
+  <% end %>
+  <%= f.link_to_add "Add a document", :customer_documents, :class => "label label-success" %>
+</div>
+<br><br><br><br><br><br><br><br><br>
+  <div class="form-group col-md-6">
+    <div class="actions">
+      <%= f.submit "Save Customer", :class=> "btn btn-info" %>
+    </div>
   </div>
 <% end %>

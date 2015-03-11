@@ -7,37 +7,29 @@
 		<tr>
 			<td>Total Pending Entries</td>
 			<td width="30%" class="text-center">
-				<%= CustomerVerification.joins(:customer).where('customers.status =?', 'in_progress').count %>
+				<%= Customer.where('customers.status =?', 'pending').count %>
 			</td>
 		</tr>
 		<tr>
-			<td>Total In Progress Entries</td>
-			<td width="30%" class="text-center"><%= CustomerVerification.joins(:customer).where('customers.status =?', 'completed').count %></td>
-		</tr>
-		<tr>
 			<td>Total Completed Entries</td>
-			<td width="30%" class="text-center"><%= CustomerVerification.joins(:customer).where('customers.status =?', 'verified').count %></td>
+			<td width="30%" class="text-center"><%= Customer.where('customers.status =?', 'completed').count %></td>
 		</tr>
 
 		<% elsif current_user.tab? %>
 		
 		<tr>
 			<td>Total Entries</td>
-			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.count if current_user.tab.present? %></td>
+			<td width="30%" class="text-center"><%= current_user.customers.count if current_user.tab.present? %></td>
 		</tr>
 		<tr>
 			<td>Total Pending Entries</td>
 			<td width="30%" class="text-center">
-				<%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'in_progress').count if current_user.tab.present? %>
+				<%= current_user.customers.where('customers.status =?', 'pending').count if current_user.tab.present? %>
 			</td>
 		</tr>
 		<tr>
-			<td>Total In Progress Entries</td>
-			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'completed').count if current_user.tab.present? %></td>
-		</tr>
-		<tr>
 			<td>Total Completed Entries</td>
-			<td width="30%" class="text-center"><%= current_user.tab.customer_verifications.joins(:customer).where('customers.status =?', 'verified').count if current_user.tab.present? %></td>
+			<td width="30%" class="text-center"><%= current_user.customers.where('customers.status =?', 'completed').count if current_user.tab.present? %></td>
 		</tr>
 	<% end %>
 		</table>

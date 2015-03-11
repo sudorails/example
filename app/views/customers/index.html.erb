@@ -21,8 +21,6 @@
         <td>
           <% if customer.pending? %>
           <h6 class="label label-warning">
-          <% elsif customer.in_progress? %>
-          <h6 class="label label-info">
           <% else customer.completed? %>
           <h6 class="label label-success">
           <% end %>

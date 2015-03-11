@@ -3,8 +3,8 @@ class HomeController < ApplicationController
 
 	def index
 		@tabs = Tab.order('id ASC')
-		@customer_verifications = CustomerVerification.all
-		@pending_on_tabs = CustomerVerification.joins(:customer, :tab).where('tabs.id =?', current_user.tab)
+		@customer_verifications = Customer.all
+		@pending_on_tabs = current_user.customers
 	end
 
 	def list_tab_users

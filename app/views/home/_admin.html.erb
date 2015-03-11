@@ -2,16 +2,25 @@
 		<b> Assigned Customers</b><hr>
 			<tr> 
 				<th>Customer Name</th>
-				<th>Type </th>
+				<th>Reference ID </th>
+				<th>Request ID</th>
 				<th>Status</th>
-				<th>Assiged Tab</th>
+				<th>CreatedBy</th>
 			</tr>
-			<% @customer_verifications.each do |verification| %>
+			<% @customer_verifications.each do |customer| %>
 			<tr>
-				<td><%= verification.customer.slug %></td>
-				<td><%= verification.customer.verification_type.name %></td>
-				<td><h6 class="label label-danger"><%= verification.customer.status.humanize %></h6></td>
-				<td><%= verification.tab.name.humanize %></td>
+				<th><%= link_to customer.name, edit_customer_path(customer) %></th>
+				<td><%= customer.reference_id %></td>
+				<td><%= customer.request_id %></td>
+				<% if customer.pending? %>
+				<td><h6 class="label label-danger">
+				<% elsif customer.completed? %>
+				<td><h6 class="label label-success">
+				<% end %>
+				<%= customer.status.humanize %>
+				</h6></td>
+				<td><%= customer.user.tab.name.humanize if customer.user.tab.present? %>
+				<%= "admin" if customer.user.admin? %></td>
 			</tr>
 		<% end %>
 		</table>

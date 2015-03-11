@@ -46,14 +46,20 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params)
-    @customer.increment!(:reference_id) 
     @customer.user_id = current_user.id
+    @customer.reference_id = Customer.last.reference_id+1 
+    @customer.request_id = Customer.present? ? @customer.reference_id : 1
     @customer.save
-    respond_with(@customer)
+    if current_user.tab?
+      redirect_to root_url , :notice => "Customer Created Successfully"
+    elsif current_user.admin? 
+      respond_with(@customer)
+    end
   end
 
   def update
     @customer.update(customer_params)
+    @customer.submit!
     respond_with(@customer)
   end
 
@@ -68,10 +74,11 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-      params.require(:customer).permit(:name, :verification_type_id, :status, :reference_id, :user_id,  
-      address_verification_attributes: [ :father_name, :dob, :location, :customer_id, :address_one, :address_two, :address_third ],
-      education_verification_attributes: [ :seat_number, :stream, :month, :year, :customer_id, :status ],
-      customer_documents_attributes: [ :customer_id, :document ],
-      crime_verification_attributes: [ :father_name, :dob, :location, :customer_id, :address_one, :address_two, :address_third ])      
+      params.require(:customer).permit(:name, :verification_type_id, :status, :reference_id, :user_id, :father_name, :dob, :location, :customer_id, :address, 
+      customer_documents_attributes: [ :customer_id, :doc_name, :document ])
+
+      #address_verification_attributes: [ :father_name, :dob, :location, :customer_id, :address_one, :address_two, :address_third ],
+      #education_verification_attributes: [ :seat_number, :stream, :month, :year, :customer_id, :status ],
+      #crime_verification_attributes: [ :father_name, :dob, :location, :customer_id, :address_one, :address_two, :address_third ])      
     end
 end

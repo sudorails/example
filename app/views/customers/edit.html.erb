@@ -1,6 +1,78 @@
-<h1>Editing Customer</h1>
+<div class="container col-lg-12">
+<h1>Editing Customer</h1><hr>
+<div class="col-lg-4">
 
-<%= render 'form' %>
+<%= nested_form_for(@customer) do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, :class => "form-control", :placeholder => "Enter Customer's Full Name" %>
+    </div>
+
+    <div class="form-group">
+    <%= f.label :father_name %><br>
+    <%= f.text_field :father_name, :class=>"form-control" %>
+    </div>
+    
+    <div class="form-group">
+    <%= f.label :dob %><br>
+    <%= f.date_select :dob, start_year: 1901, selected: Date.today-11000.days, :class=> "form-group" %>
+    </div>
+    
+    <div class="form-group">
+    <%= f.label :location %><br>
+    <%= f.text_field :location, :class=>"form-control" %>
+    </div>
+
+    <div class="form-group">
+    <%= f.label :address %><br>
+    <%= f.text_area :address, :class=>"form-control" %>
+    </div>
+
+<!-- <div class="form-group">
+  <legend>Customer Documents</legend>
+  <%#= f.link_to_add "Add a document", :customer_documents, :class => "label label-success" %><br><br>
+  <%#= f.fields_for :customer_documents do |document| %>
+    <%#= document.text_field :doc_name, require: true, :class=> "form-control", :placeholder => "enter Document Name" %><br>
+    <%#= document.file_field :document %><br>
+    <%#= document.link_to_remove "Remove this Doc", :class => "label label-danger" %>
+  <hr>
+  <%# end %>
+</div> -->
+<br><br><br>
+  <div class="form-group">
+    <div class="actions">
+      <%= f.submit "Save Customer", :class=> "btn btn-info" %>
+    </div>
+  </div>
+<% end %>
+</div>
+<div class="col-lg-8">
+
+<ul class="list-group">
+<% @customer.customer_documents.each do |cd| %>
+ <li class="list-group-item"><h3><%= cd.doc_name %></h3>
+ <% if cd.document_content_type=="image/jpeg" %>
+ <%= image_tag cd.document.url, class: "img-responsive" %>
+ <% elsif cd.document_content_type="application/pdf" %>
+ <iframe src="<%= cd.document.url %> & embedded=true" width="100%" height="800"></iframe>
+</li>
+ <% end %>
+ <% end %>
+</ul>
+</div>
+</div>
+
 
 <%= link_to 'Show', @customer %> |
 <%= link_to 'Back', customers_path %>

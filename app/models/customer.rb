@@ -20,12 +20,12 @@ class Customer < ActiveRecord::Base
 
   workflow do
     state :pending do
-      event :submit, :transitions_to => :in_progress
+      event :submit, :transitions_to => :completed
     end
-    state :in_progress do
-      event :review, :transitions_to => :completed
+    state :completed do
+      event :review, :transitions_to => :reviewed
     end
-    state :completed
+    state :reviewed
   end
 
 

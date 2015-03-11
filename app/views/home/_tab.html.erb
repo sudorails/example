@@ -1,27 +1,26 @@
 <table class="table table-condensed table-striped">
-<b> Assigned Customers</b><hr>
+<b> Created Leads</b><hr>
 <tr> 
 	<th>Customer Name</th>
-	<th>Type </th>
+	<th>FHCode </th>
+	<th>Request ID</th>
 	<th>Status</th>
-	<th>Assigned Tab</th>
 </tr>
-<% @pending_on_tabs.each do |tab| %>
+<% @pending_on_tabs.each do |customer| %>
 <tr>
-	<td><%= tab.customer.slug %></td>
-	<td><%= tab.customer.verification_type.name %></td>
-	<% if tab.customer.pending? %>
-	<td><h6 class="label label-info">
+	<td><%= customer.name %></td>
+	<td><%= customer.reference_id %></td>
+	<td><%= customer.request_id %></td>
 
-	<% elsif tab.customer.in_progress? %>
-	<td><h6 class="label label-warning">
+	<% if customer.pending? %>
+	<td><h6 class="label label-danger">
 
-	<% elsif tab.customer.completed? %>
+	<% elsif customer.completed? %>
 	<td><h6 class="label label-success">
 
   <% end %>
-	<%= tab.customer.status.humanize %></h6></td>
-	<td class="text-success"><b><%= (tab.customer.status=='in_progress') ? (link_to "Start Servey", new_address_servey_path(tab.customer)) : 'Servey Done!' %></b></td>
+	<%= customer.status.humanize %></h6></td>
+	<!-- <td class="text-success"><b><%#= (customer.status=='in_progress') ? (link_to "Start Servey", new_address_servey_path(tab.customer)) : 'Servey Done!' %></b></td> -->
 </tr>
 <% end %>
 </table>

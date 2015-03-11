@@ -9,6 +9,7 @@ class Ability
         can :read, :all
         can :create, Customer
         cannot :index, Customer
+        cannot :show, Customer
         can :new, AddressServey
         can :create, AddressServey
         cannot :users, Customer
