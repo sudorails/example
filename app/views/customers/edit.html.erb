@@ -39,6 +39,12 @@
     <%= f.text_area :address, :class=>"form-control" %>
     </div>
 
+    <div class="form-group">
+    <%= f.label :"Approved/Verified" %><br>
+    <%= f.check_box :verified %>
+    </div>
+
+
 <!-- <div class="form-group">
   <legend>Customer Documents</legend>
   <%#= f.link_to_add "Add a document", :customer_documents, :class => "label label-success" %><br><br>

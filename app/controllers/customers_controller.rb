@@ -15,7 +15,7 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new    
-    @reference_id = Customer.present? ? Customer.last.reference_id+1 : 1001 
+    @reference_id = Customer.any? ? Customer.last.reference_id+1 : 1001 
     @customer.build_address_verification
     @customer.build_education_verification
     @customer.build_crime_verification
@@ -74,7 +74,7 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-      params.require(:customer).permit(:name, :verification_type_id, :status, :reference_id, :user_id, :father_name, :dob, :location, :customer_id, :address, 
+      params.require(:customer).permit(:name, :verified, :verification_type_id, :status, :reference_id, :user_id, :father_name, :dob, :location, :customer_id, :address, 
       customer_documents_attributes: [ :customer_id, :doc_name, :document ])
 
       #address_verification_attributes: [ :father_name, :dob, :location, :customer_id, :address_one, :address_two, :address_third ],

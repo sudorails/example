@@ -3,6 +3,7 @@
 		color:orange;
 	}
 </style>
+
 <div class="col-md-4">
 <h1><%= @tab.name %></h1>
 <% unless @tab.user %>
@@ -17,18 +18,26 @@
 <hr>
 </div>
 
+<% if @tab_entries.present? %>
 <table class="table table-condensed">
 <tr>
 <th>Name </th>
-<th>Type </th>
+<th>Reference ID </th>
 <th>status </th>
 </tr>
 
-<% @tab.customer_verifications.each do |cv| %>
+<% @tab_entries.each do |cv| %>
  <tr>
-  <td><%= cv.customer.slug %></td>
-  <td><%= cv.customer.verification_type.name %></td>
-  <td><%= cv.customer.status.humanize %></td>
+  <td><%= cv.slug %></td>
+  <td><%= cv.reference_id %></td>
+  <td><%= cv.status.humanize %></td>
 </tr>
 <% end %>
 </table>
+<% end %>
+<br/><br/>
+
+
+
+
+

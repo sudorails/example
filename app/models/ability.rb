@@ -5,7 +5,7 @@ class Ability
 #      user ||= User.new # guest user (not logged in)
       if user.admin?
         can :manage, :all
-      else
+      elsif user.tab?
         can :read, :all
         can :create, Customer
         cannot :index, Customer
@@ -13,7 +13,8 @@ class Ability
         can :new, AddressServey
         can :create, AddressServey
         cannot :users, Customer
-        can :manage, Tab, :id => user.tab.id
+        can :show, Tab, :id => user.tab.id
+        cannot :manage, Tab
       end
   end
 end

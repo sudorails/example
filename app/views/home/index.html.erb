@@ -8,10 +8,11 @@
   <% end %>
 </div>
 
-<div class="col-md-5 pull-right">
+<div class="col-md-5 pull-right" style="width:350px">
 <% if user_signed_in? %>
 	<div class="panel panel-default">
-	  <div class="panel-heading"><b class="text-primary">Daily Status</b></div>
+	  <div class="panel-heading"><b class="text-primary">Daily Status</b>
+    <b class="pull-right"><%= link_to newly_added_customers_count if newly_added_customers_count > 0 %></b></div>
 	  <%= render :partial => "daily_status" %>
 	</div>
 <% end %>

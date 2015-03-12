@@ -40,6 +40,7 @@ class TabsController < ApplicationController
   private
     def set_tab
       @tab = Tab.find(params[:id])
+      @tab_entries = @tab.user.customers if @tab.user.present?
     end
 
     def tab_params

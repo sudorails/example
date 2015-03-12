@@ -1,3 +1,5 @@
+
+<h2>Tabs List:</h2><hr>
 <table class="table table-condensed table-striped">
 <thead>
 <tr>
@@ -6,7 +8,7 @@
 	<th>Total cases Assigned </th>
 	<th>Pending </th>
 	<th>Completed </th>
-	<th>In Progress </th>
+	<!-- <th>In Progress </th> -->
 
 </tr>
 </thead>
@@ -15,10 +17,10 @@
  <tr>
 	<td><b><%= tab.name %></b></td>
 	<td><%= tab.user ? tab.user.email : (link_to "assign a user to this tab", tab) %></td>
-	<td class="text-warning"><%= tab.customer_verifications.count %></td>
-	<td class="text-danger"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'pending').count %></td>
-	<td class="text-success"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'completed').count %></td>
-	<td class="text-primary"><%= tab.customer_verifications.joins(:customer).where('customers.status =?', 'in_progress').count %></td>
+	<td class="text-warning"><%= tab.user.customers.count if tab.user %></td>
+	<td class="text-danger"><%= tab.user.customers.where('customers.status =?', 'pending').count if tab.user %></td>
+	<td class="text-success"><%= tab.user.customers.where('customers.status =?', 'completed').count if tab.user %></td>
+	<!-- <td class="text-primary"><%#= tab.customers.where('customers.status =?', 'in_progress').count if tab.user %></td> -->
  </tr>
 <% end %>
 </tbody>
